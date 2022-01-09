@@ -1,2 +1,2 @@
 # Intimidated-Finisterre
-Solver for minesweeper
+Solver.Solver for minesweeper
