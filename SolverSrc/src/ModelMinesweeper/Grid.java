@@ -2,8 +2,11 @@
 
 package ModelMinesweeper;
 
+import Solver.Coordinates;
+
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.function.Function;
 
 // represents the whole grid where the game will be played
 // stores references to all cells that are part of the game
