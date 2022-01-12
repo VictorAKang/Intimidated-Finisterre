@@ -1,15 +1,17 @@
-package Solver;
+package Solver.NaiveSolver;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import Solver.Coordinates;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
 
-public class NaiveNaiveSolverTests {
+public class NaiveSolverTests {
     NaiveSolver naiveSolver;
 
     @Test
@@ -196,8 +198,8 @@ public class NaiveNaiveSolverTests {
         assertEquals(nextCoordinates.x(), 2);
         assertEquals(nextCoordinates.y(), 1);
         assertEquals(naiveSolver.certainNumberCells.size(), 1);
-        assertEquals(naiveSolver.certainNumberCells.get(0).x(), 2);
-        assertEquals(naiveSolver.certainNumberCells.get(0).y(), 2);
+        Assertions.assertEquals(naiveSolver.certainNumberCells.get(0).x(), 2);
+        Assertions.assertEquals(naiveSolver.certainNumberCells.get(0).y(), 2);
     }
 
     @Test

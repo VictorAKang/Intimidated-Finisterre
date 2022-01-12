@@ -1,5 +1,7 @@
-package Solver;
+package Solver.NaiveSolver;
 
+import Solver.Coordinates;
+import Solver.NaiveSolver.NaiveSolver;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

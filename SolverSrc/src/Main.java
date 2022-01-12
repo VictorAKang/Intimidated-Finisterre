@@ -1,7 +1,10 @@
 import ModelMinesweeper.Grid;
-import Solver.NaiveSolver;
+import Solver.LocalBruteForceSolver.LocalBruteForceSolver;
+import Solver.NaiveSolver.NaiveSolver;
 import Solver.Coordinates;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -10,7 +13,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         try {
             int[][] board = grid.parseGridIntoSolverMatrix();
-            NaiveSolver s = new NaiveSolver(board, Grid.LONG_SIDE, Grid.SHORT_SIDE);
+            LocalBruteForceSolver s = new LocalBruteForceSolver(2, Grid.LONG_SIDE, Grid.SHORT_SIDE);
             Coordinates nextToOpen;
 
             while (true) {
@@ -18,7 +21,9 @@ public class Main {
                 nextToOpen = s.step();
                 System.out.println(nextToOpen.x() + " " + nextToOpen.y());
                 grid.openCell(nextToOpen.y(), nextToOpen.x());
-                Coordinates[] toFlag = s.getFlags();
+                for (Coordinates coordinates: s.getNextSteps())
+                    grid.openCell(coordinates.y(), coordinates.x());
+                ArrayList<Coordinates> toFlag = s.getFlags();
                 for (Coordinates coordinate: toFlag)
                     grid.flagCell(coordinate.x(), coordinate.y());
                 grid.drawGrid();

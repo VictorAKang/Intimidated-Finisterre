@@ -1,4 +1,6 @@
-package Solver;
+package Solver.NaiveSolver;
+
+import Solver.Coordinates;
 
 import java.util.ArrayList;
 import java.util.HashMap;
