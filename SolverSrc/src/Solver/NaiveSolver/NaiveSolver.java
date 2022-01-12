@@ -1,6 +1,7 @@
 package Solver.NaiveSolver;
 
 import Solver.Coordinates;
+import Solver.SolverAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +14,7 @@ import java.util.Map;
  * Determines if a cell is a bomb by looking at the contents of a single cell at a time and checking if the adjacent cells
  * are bombs
  */
-public class NaiveSolver {
+public class NaiveSolver implements SolverAdapter {
     /**
         0-9 number on cell
         -2 flag
@@ -54,10 +55,18 @@ public class NaiveSolver {
      *
      * @return the Coordinates of the next cell to be opened
      */
+    @Override
     public Coordinates step() {
         if (frontier.size() == 0) return new Coordinates(longSideLength - 1,shortSideLength - 1);
         findBombs();
         return search();
+    }
+
+    @Override
+    public ArrayList<Coordinates> getNextSteps() {
+        ArrayList<Coordinates> aux = new ArrayList<>(certainNumberCells);
+        certainNumberCells.clear();
+        return aux;
     }
 
     /**
@@ -85,6 +94,7 @@ public class NaiveSolver {
      *
      * @param newBoard The new state of the board
      */
+    @Override
     public void updateBoard(int[][] newBoard) {
         Map<Coordinates, Integer> difference = getDifference(newBoard);
         Coordinates[] changedCoordinates = new Coordinates[difference.size()];
@@ -115,12 +125,11 @@ public class NaiveSolver {
             updateFrontierElement(frontier.get(i));
     }
 
-    public Coordinates[] getFlags() {
-        Coordinates[] toReturn = new Coordinates[toFlag.size()];
-        for (int i = 0; i < toFlag.size(); i++)
-            toReturn[i] = toFlag.get(i);
+    @Override
+    public ArrayList<Coordinates> getFlags() {
+        ArrayList<Coordinates> returnArray = new ArrayList<>(toFlag);
         toFlag.clear();
-        return toReturn;
+        return returnArray;
     }
 
     /**

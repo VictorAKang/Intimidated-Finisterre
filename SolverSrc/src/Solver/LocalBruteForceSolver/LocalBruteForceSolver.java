@@ -1,6 +1,7 @@
 package Solver.LocalBruteForceSolver;
 
 import Solver.Coordinates;
+import Solver.SolverAdapter;
 
 import java.lang.reflect.Array;
 import java.util.*;
@@ -10,7 +11,7 @@ import java.util.*;
  *
  * Determine bombs and guesses by brute forcing possibilities in a fixed sized area around a cell in the frontier
  */
-public class LocalBruteForceSolver {
+public class LocalBruteForceSolver implements SolverAdapter {
     protected MinesweeperGraphNode[][] board;
     protected int longSideLength;
     protected int shortSideLength;
@@ -67,11 +68,13 @@ public class LocalBruteForceSolver {
      * Returns the coordinate of the next cell to open
      * @return The coordinates of the next cell to open
      */
+    @Override
     public Coordinates step() {
         MinesweeperGraphNode node = search();
         return new Coordinates(node.getX(), node.getY());
     }
 
+    @Override
     public ArrayList<Coordinates> getNextSteps() {
         ArrayList<Coordinates> returnArray = new ArrayList<>();
 
@@ -311,6 +314,7 @@ public class LocalBruteForceSolver {
      * Update nodes that were flagged to known bombs
      * @return The list of coordinates to flag as bombs
      */
+    @Override
     public ArrayList<Coordinates> getFlags() {
         ArrayList<Coordinates> returnArray = new ArrayList<>();
         for (MinesweeperGraphNode node: toFlag) {
@@ -327,6 +331,7 @@ public class LocalBruteForceSolver {
      * Updates frontier, so it only contains nodes that are in fact in the frontier
      * @param newBoard The new state of the board
      */
+    @Override
     public void updateBoard(int[][] newBoard) {
         ArrayList<MinesweeperGraphNode> difference = getDifference(newBoard);
 
